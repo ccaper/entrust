@@ -18,8 +18,13 @@ class EntrustServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->package('zizaco/entrust', 'entrust', __DIR__.'/../');
-
+        if (method_exists($this->app['config'], 'package')) {
+            $this->app['config']->package('zizaco/entrust',__DIR__ . '/../');
+        } else {
+            // Load the config for now..
+            $config = $this->app['files']->getRequire(__DIR__ .'/../config/config.php');
+            $this->app['config']->set('entrust::config', $config);
+        }
         $this->commands('command.entrust.migration');
     }
 
