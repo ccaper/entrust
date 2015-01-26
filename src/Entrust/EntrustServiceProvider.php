@@ -23,7 +23,7 @@ class EntrustServiceProvider extends ServiceProvider
         } else {
             // Load the config for now..
             $config = $this->app['files']->getRequire(__DIR__ .'/../config/config.php');
-            $this->app['config']->set('entrust::config', $config);
+            $this->app['config']->set('entrust', $config);
         }
         $this->commands('command.entrust.migration');
     }
