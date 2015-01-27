@@ -18,6 +18,10 @@ class EntrustServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (!getenv('MODEL_NAMESPACE')) {
+            putenv('MODEL_NAMESPACE=\\');
+        }
+
         if (method_exists($this->app['config'], 'package')) {
             $this->app['config']->package('zizaco/entrust',__DIR__ . '/../');
         } else {
